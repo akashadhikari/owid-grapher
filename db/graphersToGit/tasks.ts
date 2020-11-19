@@ -107,7 +107,7 @@ const dumpColorScales = async () => {
                 colorScale: map.colorScale,
             })
 
-        if (colorScale)
+        if (colorScale && colorScale.binningStrategy !== "equalInterval")
             hits.push({
                 link,
                 id,
