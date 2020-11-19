@@ -145,14 +145,14 @@ export class ColorScaleConfig
             customNumericLabels,
             customCategoryLabels,
             customCategoryColors,
-        } = this
+        } = this.toObject()
 
-        return {
+        return trimObject({
             colorScaleScheme: baseColorScheme,
             colorScaleInvert: colorSchemeInvert,
             colorScaleBinningStrategy: binningStrategy,
-            colorScaleNumericBins: customNumericValues
-                .map((value, index) =>
+            colorScaleNumericBins: (customNumericValues ?? [])
+                .map((value: any, index: number) =>
                     [
                         customNumericColors[index] ?? "",
                         value,
@@ -160,7 +160,7 @@ export class ColorScaleConfig
                     ].join(INTRA_BIN_DELIMITER)
                 )
                 .join(INTER_BIN_DELIMITER),
-            colorScaleCategoricalBins: Object.keys(customCategoryColors)
+            colorScaleCategoricalBins: Object.keys(customCategoryColors ?? {})
                 .map((value) =>
                     [
                         customCategoryColors[value],
@@ -169,7 +169,7 @@ export class ColorScaleConfig
                     ].join(INTRA_BIN_DELIMITER)
                 )
                 .join(INTER_BIN_DELIMITER),
-        }
+        })
     }
 }
 
